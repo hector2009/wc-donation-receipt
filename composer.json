@@ -1,0 +1,16 @@
+{
+    "name": "techbuddy/newportbeachpa",
+    "require": {
+        "dompdf/dompdf": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Techbuddy\\Newportbeachpa\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sergey Stepnev"
+        }
+    ]
+}

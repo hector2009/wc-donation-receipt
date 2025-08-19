@@ -36,8 +36,21 @@ class WC_Donation_Receipt {
 	 */
 	public function get_order_receipt_url( $order_id ) {
 		$upload_dir = wp_upload_dir();
+		$order      = wc_get_order( $order_id );
 
-		return $upload_dir['basedir'] . "/receipts/order-{$order_id}.pdf";
+		$full_name_arr   = [];
+		$full_name_arr[] = $order->get_billing_first_name();
+		$full_name_arr[] = $order->get_billing_last_name();
+
+		$full_name      = implode( ' ', array_filter( $full_name_arr ) );
+
+		$pdf_title_parts   = [ 'tax-receipt' ];
+		$pdf_title_parts[] = $order_id;
+		$pdf_title_parts[] = sanitize_title( $full_name );
+		$pdf_title_parts[] = sanitize_title( wc_format_datetime( $order->get_date_created(), 'Y-m-d' ) );
+		$pdf_title         = implode( '-', $pdf_title_parts );
+
+		return $upload_dir['basedir'] . "/receipts/{$pdf_title}.pdf";
 	}
 
 	/**

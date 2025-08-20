@@ -73,9 +73,9 @@ class WC_Donation_Receipt {
 			return;
 		}
 
-		/*if ( file_exists( $this->get_order_receipt_url( $order_id ) ) ) {
+		if ( file_exists( $this->get_order_receipt_url( $order_id ) ) ) {
 			return; // PDF already generated
-		}*/
+		}
 
 		// Load order data
 		$order             = wc_get_order( $order_id );
@@ -107,7 +107,7 @@ vital work.<br><br>
 With appreciation,     <br><br>
 NEWPORT BEACH FIRST RESPONDERS
 	</div>';
-		$html .= '<div style="margin-top: 150px;border: 1px solid #000; padding: 10px 20px;">';
+		$html .= '<div style="margin-top: 120px;border: 1px solid #000; padding: 10px 20px;">';
 		$html .= '<h4 style="text-decoration: underline;text-align: center;margin-bottom: 10px;margin-top:0;"><i>For Office Use Only</i></h4>';
 		$html .= '<table width="100%" cellpadding="10" cellspacing="0">';
 		$html .= '<tr>';

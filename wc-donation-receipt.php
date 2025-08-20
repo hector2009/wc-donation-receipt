@@ -80,7 +80,7 @@ class WC_Donation_Receipt {
 		// Load order data
 		$order             = wc_get_order( $order_id );
 		$order_total_price = $order->get_formatted_order_total();
-		$order_date        = wc_format_datetime( $order->get_date_created() );
+		$order_date        = wc_format_datetime( $order->get_date_created(), 'm/d/Y' );
 		$payment_method    = wp_kses_post( $order->get_payment_method_title() );
 		$sign_path         = WCD_RECEIPT_PLUGIN_URL . 'images/signature.png';
 

@@ -95,7 +95,7 @@ Identification Number (EIN) is 39-3582726.  <br><br>
 Your generosity enables us to provide essential resources and programs that honor and assist those
 who serve our local communities every day. We are deeply grateful for your partnership in this
 vital work.<br><br>
-With appreciation,     <br>
+With appreciation,     <br><br>
 NEWPORT BEACH FIRST RESPONDERS
 	</div>';
 		$html .= '<div style="margin-top: 150px;border: 1px solid #000; padding: 10px 20px;">';

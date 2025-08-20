@@ -13,6 +13,14 @@
  * Requires Plugins:  wc-donation-platform
  */
 
+if ( ! defined( 'WCD_RECEIPT_PLUGIN_URL' ) ) {
+	define( 'WCD_RECEIPT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+}
+
+if ( ! defined( 'WCD_RECEIPT_PLUGIN_PATH' ) ) {
+	define( 'WCD_RECEIPT_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+}
+
 include_once __DIR__ . '/vendor/autoload.php';
 
 /**
@@ -65,17 +73,18 @@ class WC_Donation_Receipt {
 			return;
 		}
 
-		if ( file_exists( $this->get_order_receipt_url( $order_id ) ) ) {
+		/*if ( file_exists( $this->get_order_receipt_url( $order_id ) ) ) {
 			return; // PDF already generated
-		}
+		}*/
 
 		// Load order data
 		$order             = wc_get_order( $order_id );
 		$order_total_price = $order->get_formatted_order_total();
 		$order_date        = wc_format_datetime( $order->get_date_created() );
 		$payment_method    = wp_kses_post( $order->get_payment_method_title() );
+		$sign_path         = WCD_RECEIPT_PLUGIN_URL . 'images/signature.png';
 
-		$dompdf = new Dompdf\Dompdf();
+		$dompdf = new Dompdf\Dompdf(array('enable_remote' => true));
 
 		// Build PDF content
 		$html = '<h2 style="text-align:center;">NEWPORT BEACH FIRST RESPONDERS</h2>';
@@ -106,7 +115,7 @@ NEWPORT BEACH FIRST RESPONDERS
 		$html .= "<td>Manner of Payment: {$payment_method}</td>";
 		$html .= '</tr>';
 		$html .= '<tr>';
-		$html .= '<td>Authorized by: Here Sign</td>';
+		$html .= '<td>Authorized by: <img width="120" src="' . $sign_path . '" /></td>';
 		$html .= "<td>Date: {$order_date}</td>";
 		$html .= '</tr>';
 		$html .= '</table>';
@@ -114,7 +123,7 @@ NEWPORT BEACH FIRST RESPONDERS
 		$html .= '<hr style="margin-top: 50px;" />';
 
 		$dompdf->loadHtml( $html );
-		$dompdf->setPaper( 'A4', 'portrait' );
+		$dompdf->setPaper( 'A4' );
 		$dompdf->render();
 
 		// Save PDF to uploads folder

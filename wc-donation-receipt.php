@@ -31,7 +31,7 @@ include_once __DIR__ . '/vendor/autoload.php';
 class WC_Donation_Receipt {
 
 	public function __construct() {
-		add_action( 'woocommerce_thankyou', [ $this, 'generate_receipt' ], 10, 1 );
+		add_action( 'woocommerce_new_order', [ $this, 'generate_receipt' ], 10, 1 );
 		add_action( 'woocommerce_email_attachments', [ $this, 'email_attachments' ], 10, 3 );
 	}
 
